@@ -13,8 +13,8 @@ namespace 코인_먹기
         static void Main(string[] args)
         {
 
-            System.ConsoleKeyInfo user_Key_Input = default;
-                // getch
+            System.ConsoleKeyInfo user_Key_Input = default;     // getch
+
 
             //  글자배경색, 글자색 바꾸는 함수
 
@@ -78,7 +78,7 @@ namespace 코인_먹기
                     break;
                 }
 
-                Console.Write("현재 획득한 코인 갯수 : {0}", coincount);
+                Console.WriteLine("현재 획득한 코인 갯수 : {0}", coincount);
 
                 //char user_Key_Input = (char)Console.ReadLine()[0];
                 user_Key_Input = Console.ReadKey(true);
@@ -87,6 +87,12 @@ namespace 코인_먹기
        
                 if (user_Key_Input.KeyChar == 'w' || user_Key_Input.KeyChar == 'W')
                 {
+                    if (user_Y_Array <= 0)
+                    {
+                        user_Y_Array = 0;
+                        goto exit;
+                       
+                    }
 
                     if ( background[user_Y_Array -1 ,user_X_Array] == "ⓒ ")
                     {
@@ -103,6 +109,14 @@ namespace 코인_먹기
             
                 else if (user_Key_Input.KeyChar == 's' || user_Key_Input.KeyChar == 'S')
                 {
+
+                    if (user_Y_Array >= user_Background -1)
+                    {
+                        user_Y_Array = user_Background -1 ;
+                        goto exit;
+
+                    }
+
                     if (background[user_Y_Array + 1, user_X_Array] == "ⓒ ")
                     {
                         background[user_Y_Array + 1, user_X_Array] = "*  ";
@@ -114,10 +128,19 @@ namespace 코인_먹기
 
                     user_Y_Array += 1;
 
+
                 }
             
                 else if (user_Key_Input.KeyChar == 'd' || user_Key_Input.KeyChar == 'D')
                 {
+
+                    if (user_X_Array >= user_Background - 1)
+                    {
+                        user_X_Array = user_Background - 1;
+                        goto exit;
+
+                    }
+
                     if (background[user_Y_Array, user_X_Array + 1] == "ⓒ ")
                     {
                         background[user_Y_Array, user_X_Array + 1] = "*  ";
@@ -133,6 +156,14 @@ namespace 코인_먹기
             
                 else if (user_Key_Input.KeyChar == 'a' || user_Key_Input.KeyChar == 'A')
                 {
+
+                    if (user_X_Array <= 0)
+                    {
+                        user_X_Array = 0;
+                        goto exit;
+
+                    }
+
                     if (background[user_Y_Array, user_X_Array -1 ] == "ⓒ ")
                     {
                         background[user_Y_Array, user_X_Array -1 ] = "*  ";
@@ -146,6 +177,8 @@ namespace 코인_먹기
 
             
                 }
+
+                exit:
 
                 if (keycount % 3 == 0)
                 {
