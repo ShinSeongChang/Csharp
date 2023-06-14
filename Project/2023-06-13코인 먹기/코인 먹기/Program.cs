@@ -71,6 +71,8 @@ namespace 코인_먹기
 
             while (true)
             {
+                Console.SetCursorPosition(0, 0);
+
                 if(coincount == 3)
                 {
                     Console.Clear();
@@ -83,7 +85,7 @@ namespace 코인_먹기
                 //char user_Key_Input = (char)Console.ReadLine()[0];
                 user_Key_Input = Console.ReadKey(true);
 
-                Console.Clear();
+                //Console.Clear();
        
                 if (user_Key_Input.KeyChar == 'w' || user_Key_Input.KeyChar == 'W')
                 {
