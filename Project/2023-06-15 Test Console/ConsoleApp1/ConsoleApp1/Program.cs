@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConsoleApp1
@@ -10,7 +11,10 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+
+        
             System.ConsoleKeyInfo userKey = default;
+
 
             string userinput = default;
             int useroutput = 0;
@@ -20,15 +24,17 @@ namespace ConsoleApp1
             int rock_y = default;
             int score = 0;
             int movecount = 0;
-            string[,] background = new string[100, 100];
+            string[,] background = new string[20, 20];
 
-            Console.WriteLine("     맵 사이즈를 입력해주세요 : ");
+        
+            Console.Write("     맵 사이즈를 입력해주세요 : ");
             userinput = Console.ReadLine();
 
             Console.Clear();
 
             int.TryParse(userinput, out useroutput);
 
+        Reset:
             player = useroutput / 2;
             int player_x = player;
             int player_y = player;
@@ -51,6 +57,11 @@ namespace ConsoleApp1
 
             while (true)
             {
+
+            square_limit:
+
+                Console.SetCursorPosition(0, 0);
+
                 for (int y = 0; y < useroutput; y++)
                 {
                     for (int x = 0; x < useroutput; x++)
@@ -61,10 +72,15 @@ namespace ConsoleApp1
                     Console.WriteLine();
                 }
 
-
-            square_limit:
-
                 userKey = Console.ReadKey(true);
+
+                if(userKey.KeyChar == 'r' || userKey.KeyChar == 'R')
+                {
+                    movecount = 0;
+                    rock = 0;
+
+                    goto Reset;
+                }
 
                 if (userKey.KeyChar == 'w' || userKey.KeyChar == 'W')
                 {
@@ -72,17 +88,24 @@ namespace ConsoleApp1
                     {
                         player_y = 0;
                         goto square_limit;
-                    }       
-
-
-                    for(int y = 0; y < useroutput -1; y++)
-                    {
-                        if (background[player_y -1 ,player_x] == "#  ")
-                        {
-                            Swap(ref background[player_y -1,player_x], ref background[0,player_x]);
-
-                        }
                     }
+                    
+                    if (background[player_y -1, player_x] == "#  ")
+                    {
+                        for(int y = player_y -2; y >= 0; y--)
+                        {
+                            if (background[y, player_x] == "#  ")
+                            {
+                                Swap(ref background[player_y - 1, player_x], ref background[y + 1, player_x]);
+                                goto square_limit;
+                            }
+                            
+                        }
+
+                        Swap(ref background[player_y -1, player_x], ref background[0, player_x]);
+
+                    }
+               
                     Swap(ref background[player_y, player_x], ref background[player_y - 1, player_x]);
                     player_y -= 1;
 
@@ -98,17 +121,20 @@ namespace ConsoleApp1
 
                     if (background[player_y + 1, player_x] == "#  ")
                     {
-                        for (int y = useroutput -1; y > player_y + 2; y--)
+                        for (int y = player_y + 2; y <= useroutput -1; y++)
                         {
                             if (background[y, player_x] == "#  ")
                             {
-                                Swap(ref background[y-1, player_x], ref background[player_y + 1, player_x]);
+                                Swap(ref background[player_y + 1, player_x], ref background[y -1, player_x]);
+                                goto square_limit;
                             }
 
                         }
 
-                        Swap(ref background[player_y + 1, player_x], ref background[useroutput - 1, player_x]);
+                        Swap(ref background[useroutput -1 , player_x], ref background[player_y + 1, player_x]);
+
                     }
+
 
                     Swap(ref background[player_y, player_x], ref background[player_y + 1, player_x]);
                     player_y += 1;
@@ -122,19 +148,22 @@ namespace ConsoleApp1
                         goto square_limit;
                     }
 
-                    if (background[player_y, player_x - 1] == "#  ")
+                    if (background[player_y, player_x -1] == "#  ")
                     {
-                        for (int x = 0; x < player_x - 2; x++)
+                        for (int x = player_x - 2; x >= 0; x--)
                         {
                             if (background[player_y, x] == "#  ")
                             {
-                                Swap(ref background[player_y, x+1 ], ref background[player_y, player_x - 1]);
+                                Swap(ref background[player_y, player_x-1], ref background[player_y, x+1]);
+                                goto square_limit;
                             }
 
                         }
 
-                        Swap(ref background[player_y, player_x - 1], ref background[player_y, 0]);
+                        Swap(ref background[player_y, 0], ref background[player_y , player_x-1]);
+
                     }
+
 
                     Swap(ref background[player_y, player_x], ref background[player_y, player_x - 1]);
                     player_x -= 1;
@@ -150,17 +179,20 @@ namespace ConsoleApp1
 
                     if (background[player_y, player_x + 1] == "#  ")
                     {
-                        for (int x = useroutput -1; x > player_x - 2; x--)
+                        for (int x = player_x + 2; x <= useroutput -1; x++)
                         {
                             if (background[player_y, x] == "#  ")
                             {
-                                Swap(ref background[player_y, x - 1], ref background[player_y, player_x + 1]);
+                                Swap(ref background[player_y, player_x + 1], ref background[player_y, x-1]);
+                                goto square_limit;
                             }
 
                         }
 
-                        Swap(ref background[player_y, player_x + 1], ref background[player_y, useroutput - 1]);
+                        Swap(ref background[player_y, player_x +1 ], ref background[player_y, useroutput -1]);
+
                     }
+
 
                     Swap(ref background[player_y, player_x], ref background[player_y, player_x + 1]);
                     player_x += 1;
@@ -187,16 +219,6 @@ namespace ConsoleApp1
                     rock += 1;
                 }
 
-
-                for(int y = 0; y < useroutput; y++)
-                {
-                    for(int x = 0; x < useroutput; x++)
-                    {
-
-                    }
-                }
-
-                Console.SetCursorPosition(0, 0);
             }
 
         }
