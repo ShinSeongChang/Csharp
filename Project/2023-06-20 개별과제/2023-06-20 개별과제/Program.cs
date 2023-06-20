@@ -12,12 +12,14 @@ namespace _2023_06_20_개별과제
         {
             string[,] map = new string[20, 20];
             int map_Size = 20;
-            string map_ground = " ㅤ ";
-            string map_limit = " ■ ";
+            string map_ground = "ㅤ";
+            string map_limit = "■";
 
-            string player = " ★ ";
+            string player = "★";
             int player_X = map_Size / 2;
             int player_Y = map_Size / 2;
+
+            string portal = "＠";
 
             for(int y= 0; y<map_Size; y++)
             {
@@ -32,6 +34,10 @@ namespace _2023_06_20_개별과제
                     else if(x == player_X && y == player_Y)
                     {
                         map[y, x] = player;
+                    }
+                    else if (((x == 1 || x == map_Size -2) && y == map_Size / 2) || ((y == 1 || y == map_Size - 2) && x == map_Size / 2))
+                    {
+                        map[y,x] = portal; 
                     }
                     
                 }
