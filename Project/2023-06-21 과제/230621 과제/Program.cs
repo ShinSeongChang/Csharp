@@ -4,16 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace 함수_쪼개기
+namespace _230621_과제
 {
-    public class Program
+    internal class Program
     {
         static void Main(string[] args)
-        {
-            Playing_Game();           
-        }
-
-        static void Playing_Game()
         {
             Random rnd = new Random();
 
@@ -45,6 +40,7 @@ namespace 함수_쪼개기
             int best_Score = 0;
 
 
+            // 맵 입력
             for (int y = 0; y < map_Y_Size; y++)
             {
                 for (int x = 0; x < map_X_Size; x++)
@@ -59,13 +55,11 @@ namespace 함수_쪼개기
                     {
                         map[y, x] = player;
                     }
-
-
                 }
             }
+            //맵 입력
 
-
-            // 랜덤 벽 생성 로직
+            // 랜덤 벽 생성
             while (wall_Count < 100)
             {
                 random_Wall_X = rnd.Next(1, map_X_Size - 2);
@@ -84,11 +78,10 @@ namespace 함수_쪼개기
             }
             // 랜덤 벽 생성
 
+
             // 게임 진행부분
-
-            while (map[player_Y, player_X] != enumy)
+            while (true)
             {
-
                 Console.SetCursorPosition(0, 0);
 
                 for (int y = 0; y < map_Y_Size; ++y)
@@ -103,17 +96,13 @@ namespace 함수_쪼개기
                 Console.WriteLine("현재 점수 : {0}", score);
                 Console.WriteLine("최고 점수 : {0}", best_Score);
 
-                //플레이어 이동
 
+                //플레이어 이동
                 ConsoleKeyInfo user_Arrow = Console.ReadKey();
                 switch (user_Arrow.Key)
                 {
                     case ConsoleKey.UpArrow:
                         if (map[player_Y - 1, player_X] == map_limit)   // 플레이어가 맵 크기 상한선 넘으려 할 때 이동제한
-                        {
-                            break;
-                        }
-                        else if (map[player_Y - 1, player_X] == enumy)
                         {
                             break;
                         }
@@ -127,10 +116,6 @@ namespace 함수_쪼개기
                         {
                             break; ;
                         }
-                        else if (map[player_Y + 1, player_X] == enumy)
-                        {
-                            continue;
-                        }
 
                         Swap(ref map[player_Y, player_X], ref map[player_Y + 1, player_X]);
                         player_Y += 1;
@@ -142,11 +127,6 @@ namespace 함수_쪼개기
                         {
                             break;
                         }
-                        else if (map[player_Y, player_X - 1] == enumy)
-                        {
-                            break;
-                        }
-
 
                         Swap(ref map[player_Y, player_X], ref map[player_Y, player_X - 1]);
                         player_X -= 1;
@@ -157,23 +137,20 @@ namespace 함수_쪼개기
                         {
                             break;
                         }
-                        else if (map[player_Y, player_X + 1] == enumy)
-                        {
-                            break;
-                        }
 
                         Swap(ref map[player_Y, player_X], ref map[player_Y, player_X + 1]);
                         player_X += 1;
                         break;
 
                 }
-
                 // 플레이어 이동
+
+
                 score += 10;
                 moove_Count++;
 
                 // 랜덤 적 생성                
-                if (moove_Count % 7 == 0)
+                if (moove_Count % 5 == 0)
                 {
                     while (true)
                     {
@@ -195,6 +172,8 @@ namespace 함수_쪼개기
                 // 랜덤 적 생성
 
 
+
+                // 랜덤한 적들이 플레이어를 추적
                 for (int i = 0; i < enumy_X.Count; i++)
                 {
                     if (enumy_Y[i] != player_Y)
@@ -245,45 +224,22 @@ namespace 함수_쪼개기
                             enumy_X[i] -= 1;
                         }
                     }
-                }  
-
-            }
-
-            if (score > best_Score || best_Score == 0)
-            {
-                best_Score += score;
-            }
-
-            while (true)
-            {
-                Console.WriteLine("게임 종료");
-                Console.WriteLine("게임을 재시작 하겠습니까?");
-                Console.WriteLine("수락 : [Y]  거절 [N]");
-
-                ConsoleKeyInfo key = Console.ReadKey();
-
-                if (key.Key == ConsoleKey.N)
-                {
-                    break;
                 }
-                else if (key.Key == ConsoleKey.Y)
+                // 랜덤한 적들이 플레이어를 추적
+
+                // 게임 종료
+                for (int i = 0; i < enumy_X.Count; i++)
                 {
-                    Console.Clear();
-                    Playing_Game();
-                }
-                else
-                {
-                    Console.Clear();
-                    Console.WriteLine("키 입력이 올바르지 않습니다.");
-                    continue;
+                    if (player_X == enumy_X[i] && player_Y == enumy_Y[i])
+                    {
+                        return;
+                    }
+
                 }
 
             }
-
-
 
         }
-
         static void Swap(ref string first, ref string second)
         {
             string temp = "\0";
@@ -292,6 +248,7 @@ namespace 함수_쪼개기
             second = temp;
         }
 
-    }     
+    }
+
     
 }

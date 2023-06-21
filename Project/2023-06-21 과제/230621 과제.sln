@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "함수 쪼개기", "함수 쪼개기\함수 쪼개기.csproj", "{9CDF8E99-6514-4237-9E51-AEA803D8B451}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "230621 과제", "230621 과제\230621 과제.csproj", "{A531C3F9-30BD-4A99-920D-3DBC2EDB0B8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9CDF8E99-6514-4237-9E51-AEA803D8B451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CDF8E99-6514-4237-9E51-AEA803D8B451}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CDF8E99-6514-4237-9E51-AEA803D8B451}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CDF8E99-6514-4237-9E51-AEA803D8B451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A531C3F9-30BD-4A99-920D-3DBC2EDB0B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A531C3F9-30BD-4A99-920D-3DBC2EDB0B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A531C3F9-30BD-4A99-920D-3DBC2EDB0B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A531C3F9-30BD-4A99-920D-3DBC2EDB0B8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C386D5C4-7AFC-413B-8F60-FC27E3385CDD}
+		SolutionGuid = {4CBC2E43-B701-470C-BE53-BD0ACB9BAE44}
 	EndGlobalSection
 EndGlobal
