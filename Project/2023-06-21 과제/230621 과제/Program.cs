@@ -30,9 +30,9 @@ namespace _230621_과제
             int player_X = map_X_Size / 2;
             int player_Y = map_Y_Size / 2;
 
-            string enumy = "＠";
-            int random_Enumy_X = 0;
-            int random_Enumy_Y = 0;
+            string enemy = "＠";
+            int random_Enemy_X = 0;
+            int random_Enemy_Y = 0;
 
             int moove_Count = 0;
 
@@ -154,15 +154,15 @@ namespace _230621_과제
                 {
                     while (true)
                     {
-                        random_Enumy_X = rnd.Next(1, map_X_Size - 2);
-                        random_Enumy_Y = rnd.Next(1, map_Y_Size - 2);
+                        random_Enemy_X = rnd.Next(1, map_X_Size - 2);
+                        random_Enemy_Y = rnd.Next(1, map_Y_Size - 2);
 
-                        if (map[random_Enumy_Y, random_Enumy_X] != player && map[random_Enumy_Y, random_Enumy_X] != map_limit)
+                        if (map[random_Enemy_Y, random_Enemy_X] != player && map[random_Enemy_Y, random_Enemy_X] != map_limit)
                         {
-                            enumy_X.Add(random_Enumy_X);
-                            enumy_Y.Add(random_Enumy_Y);
+                            enumy_X.Add(random_Enemy_X);
+                            enumy_Y.Add(random_Enemy_Y);
 
-                            map[random_Enumy_Y, random_Enumy_X] = enumy;
+                            map[random_Enemy_Y, random_Enemy_X] = enemy;
                             break;
                         }
 
@@ -190,7 +190,7 @@ namespace _230621_과제
                         }
                         else if (enumy_Y[i] > player_Y)
                         {
-                            if (map[enumy_Y[i] - 1, enumy_X[i]] == map_limit || map[enumy_Y[i] - 1, enumy_X[i]] == enumy)
+                            if (map[enumy_Y[i] - 1, enumy_X[i]] == map_limit || map[enumy_Y[i] - 1, enumy_X[i]] == enemy)
                             {
                                 continue;
                             }
@@ -205,7 +205,7 @@ namespace _230621_과제
 
                         if (enumy_X[i] < player_X)
                         {
-                            if (map[enumy_Y[i], enumy_X[i] + 1] == map_limit || map[enumy_Y[i], enumy_X[i] + 1] == enumy)
+                            if (map[enumy_Y[i], enumy_X[i] + 1] == map_limit || map[enumy_Y[i], enumy_X[i] + 1] == enemy)
                             {
                                 continue;
                             }
@@ -215,7 +215,7 @@ namespace _230621_과제
                         }
                         else if (enumy_X[i] > player_X)
                         {
-                            if (map[enumy_Y[i], enumy_X[i] - 1] == map_limit || map[enumy_Y[i], enumy_X[i] - 1] == enumy)
+                            if (map[enumy_Y[i], enumy_X[i] - 1] == map_limit || map[enumy_Y[i], enumy_X[i] - 1] == enemy)
                             {
                                 continue;
                             }
