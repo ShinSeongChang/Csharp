@@ -16,10 +16,9 @@ namespace _230622_과제
         
         static void Main(string[] args)
         {
-            Battle battle_Play = new Battle();            
-
-            Console.CursorVisible = false;
+            Battle battle_Play = new Battle();
             Random rand = new Random();
+            Console.CursorVisible = false;            
 
             string[,] map = new string[26, 30];
             int map_size_X = 30;
@@ -33,6 +32,8 @@ namespace _230622_과제
             int player_X = map_size_X / 2;
             int player_Y = map_size_Y / 2;
 
+            string bush = "※";
+
             string npc = "§";
             int npc_X = 5;
             int npc_Y = 15;
@@ -40,12 +41,8 @@ namespace _230622_과제
             int quest_count = 0;
             int quest = 0;
             int quest_Max = 5;
-
-            string bush = "※";
-
-            int random_Battle = 0;
-                        
             
+            int random_Battle = 0;                                    
 
             // 맵 입력
             for (int y = 0;  y < map_size_Y; y++)
@@ -87,11 +84,6 @@ namespace _230622_과제
                     for (int x = 0; x < map_size_X; x++)
                     {
                         Console.Write(map[y, x]);
-
-                        if (y == 9 && x == map_size_X - 1)
-                        {
-
-                        }
                     }
                     Console.WriteLine();
 
@@ -115,7 +107,7 @@ namespace _230622_과제
                         else if(map[player_Y - 1, player_X] == npc)         // 유저가 이동할 칸이 npc 라면
                         {                                                   // 퀘스트를 수락했다는 문구를 맵과 함께 새로 그려준 뒤
                             quest_count++;                                  // 입력값을 넘긴다.
-                            Console.SetCursorPosition(0, 0);                
+                            Console.Clear();
 
                             for (int y = 0; y < map_size_Y; y++)
                             {
@@ -130,6 +122,11 @@ namespace _230622_과제
                                 }
                                 Console.WriteLine();
 
+                            }
+
+                            if (quest >= 5)
+                            {
+                                quest = 0;
                             }
                             break;
                         }
@@ -164,7 +161,7 @@ namespace _230622_과제
                         else if (map[player_Y + 1, player_X] == npc)
                         {
                             quest_count++;
-                            Console.SetCursorPosition(0, 0);
+                            Console.Clear();
 
                             for (int y = 0; y < map_size_Y; y++)
                             {
@@ -179,6 +176,11 @@ namespace _230622_과제
                                 }
                                 Console.WriteLine();
 
+                            }
+
+                            if (quest >= 5)
+                            {
+                                quest = 0;
                             }
 
                             break;
@@ -209,7 +211,7 @@ namespace _230622_과제
                         {
                             quest_count++;
 
-                            Console.SetCursorPosition(0, 0);
+                            Console.Clear();
 
                             for (int y = 0; y < map_size_Y; y++)
                             {
@@ -224,6 +226,11 @@ namespace _230622_과제
                                 }
                                 Console.WriteLine();
 
+                            }
+
+                            if (quest >= 5)
+                            {
+                                quest = 0;
                             }
 
                             break;
@@ -253,8 +260,9 @@ namespace _230622_과제
                         }
                         else if (map[player_Y, player_X + 1] == npc)
                         {
+                            
                             quest_count++;
-                            Console.SetCursorPosition(0, 0);
+                            Console.Clear();
 
                             for (int y = 0; y < map_size_Y; y++)
                             {
@@ -269,6 +277,11 @@ namespace _230622_과제
                                 }
                                 Console.WriteLine();
 
+                            }
+
+                            if(quest >= 5)
+                            {
+                                quest = 0;
                             }
 
                             break;
@@ -290,31 +303,40 @@ namespace _230622_과제
                         break;
 
                 }
-                // 유저 이동 로직               
+                // 유저 이동 로직
+                // 
 
                 // 부쉬가 있는 좌표값에 플레이어가 존재하는지 탐색
-                for (int y= 2; y < 9;  y++)
+                for (int y= 2; y <= 9;  y++)
                 {
-                    for(int x= 18; x < 25; x++)
+                    for(int x= 18; x <= 25; x++)
                     {
-                        if (map[y,x] == player)    // 부쉬좌표에 플레이어가 존재하며, random_Battle 확률 36퍼 달성시
+                        if (map[y,x] == player)    // 부쉬좌표에 플레이어가 존재하면 랜덤값을 입력 받는다.
                         {
                             random_Battle = rand.Next(0, 100);
 
                             Console.WriteLine("주사위 값 : {0}", random_Battle);
 
-                            if(random_Battle < 36 && quest_count >= 1)
+                            if (random_Battle < 36 && quest_count >= 1) // 퀘스트를 진행중일때 전투 발생시
                             {
+                                
+                                Console.WriteLine("주사위 값 : {0}", random_Battle);
+                                Console.WriteLine("전투 발생");                               
+                                Console.WriteLine("퀘스트 진행도 : {0} / {1}", quest, quest_Max);
+                                quest++;
+                                Thread.Sleep(1000);
 
                                 battle_Play.Play_Battle();
-                                ++quest;
-                                Console.WriteLine("퀘스트 진행도 : {0} / {1}", quest, quest_Max);
+                               
 
                             }
-                            else if (random_Battle < 36)
+                            else if (random_Battle < 36)                // 일반 전투 발생시
                             {
-                                battle_Play.Play_Battle();
+                                Console.WriteLine("주사위 값 : {0}", random_Battle);
                                 Console.WriteLine("전투 발생");
+
+                                Thread.Sleep(1000);
+                                battle_Play.Play_Battle();                                
                             }
                             
                         }
@@ -323,14 +345,28 @@ namespace _230622_과제
 
                 
 
-                if (quest >= 5)
+                if (quest >= 5 && quest_count >= 1)
                 {
                     quest = 5;
-                    quest_count = 0;
-                    Console.WriteLine("퀘스트 클리어");
 
-                    Thread.Sleep(1000);
-                    Console.Clear();
+                    Console.SetCursorPosition(0, 0);    // 화면 좌표 고정  
+
+                    for (int y = 0; y < map_size_Y; y++)
+                    {
+                        for (int x = 0; x < map_size_X; x++)
+                        {
+                            Console.Write(map[y, x]);
+
+                            if (y == 9 && x == map_size_X - 1)
+                            {
+
+                            }
+                        }
+                        Console.WriteLine();
+
+                    }
+
+                    Console.WriteLine("퀘스트 클리어");
                 }
 
 
