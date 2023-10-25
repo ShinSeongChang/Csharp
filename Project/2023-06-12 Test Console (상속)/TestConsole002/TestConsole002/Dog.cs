@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// 구조체 == struct
 public struct Cat
 {
     private int legCount;

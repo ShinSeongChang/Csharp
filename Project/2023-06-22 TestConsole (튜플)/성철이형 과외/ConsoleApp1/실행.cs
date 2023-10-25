@@ -10,6 +10,7 @@ namespace ConsoleApp1
     {
         //멤버변수
         public MoveSomething move;
+        public MoveSomething move2;
         int[] arr;
 
         //new 할 때 실행이 된다
@@ -18,11 +19,15 @@ namespace ConsoleApp1
         {
             arr = new int[14];
             move = new MoveSomething();
+
+
         }
 
         public void Play()
         {
             Console.WriteLine(move.x + ", " + move.y);
+            Console.WriteLine(move2.x + ", " + move2.y);
+
         }
     }
 }
